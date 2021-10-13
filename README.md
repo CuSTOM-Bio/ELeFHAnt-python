@@ -15,7 +15,6 @@ GitHub Username: kthorner
 
 Praneet Chaturvedi (MS Bioinformatics) : Lead Analyst Bioinformatics, Cincinnati Children's Hospital and Medical Center, Cincinnati, OH - USA
 GitHub Username: praneet1988
-
 ```
 
 ## ELeFHAnt Model
