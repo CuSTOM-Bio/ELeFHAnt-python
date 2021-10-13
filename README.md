@@ -1,21 +1,21 @@
-[![<praneet1988>](https://circleci.com/gh/praneet1988/ELeFHAnt.svg?style=shield)](https://github.com/praneet1988/ELeFHAnt)
-[![Github All Releases](https://img.shields.io/github/downloads/praneet1988/ELeFHAnt/total.svg)]()
-
 # ELeFHAnt
-Ensemble Learning for Harmonization and Annotation of Single Cells (ELeFHAnt) provides an easy to use R package for users to annotate clusters of single cells, harmonize labels across single cell datasets to generate a unified atlas and infer relationship among celltypes between two datasets. It provides users with the flexibility of choosing a single machine learning based classifier or letting ELeFHAnt automatically use the power of  randomForest and SVM (Support Vector Machines) to make predictions. It has three functions 1) CelltypeAnnotation 2) LabelHarmonization 3) DeduceRelationship.
+Ensemble Learning for Harmonization and Annotation of Single Cells (ELeFHAnt) provides an easy to use python package for users to annotate clusters of single cells, harmonize labels across single cell datasets to generate a unified atlas and infer relationship among celltypes between two datasets. It provides users with the flexibility of choosing a single machine learning based classifier or letting ELeFHAnt automatically use the power of  randomForest and SVM (Support Vector Machines) to make predictions. It has three functions 1) CelltypeAnnotation 2) LabelHarmonization 3) DeduceRelationship.
 
 ## Installation
 ```
+Please download the Git repository and change directory to Git folder (example: ELeFHAnt-python) and run the command below:
+Requirements: python3 (>=3.6)
 pip install yourdirectory/elefhant/dist/elefhant-1.0.0-py3-none-any.whl
 ```
 
 ## Developers
 ```
+Konrad Thorner (MS Bioinformatics) : Analyst Bioinformatics, Cincinnati Children's Hospital and Medical Center, OH - USA
+GitHub Username: kthorner
+
 Praneet Chaturvedi (MS Bioinformatics) : Lead Analyst Bioinformatics, Cincinnati Children's Hospital and Medical Center, Cincinnati, OH - USA
 GitHub Username: praneet1988
 
-Konrad Thorner (MS Bioinformatics) : Analyst Bioinformatics, Cincinnati Children's Hospital and Medical Center, OH - USA
-GitHub Username: kthorner
 ```
 
 ## ELeFHAnt Model
@@ -67,9 +67,9 @@ Ensemble learning based classsification uses both randomForest and SVM predictio
 out = CelltypeAnnotation(reference = reference.object, query = mydata.object, downsample = False, downsample_to = 100, classification_method = "Ensemble", crossvalidationSVM = 10, validatePredictions = True, selectvarfeatures = 2000, ntree = 500, cost = 10 classification_approach = "ClassifyCells")
 ## What does each parameter do?
 ```
-reference: a processed Seurat object with Celltypes column in the metadata
+reference: a processed Scanpy object with Celltypes column in the metadata
 
-query: a processed Seurat object with seurat_clusters column in the metadata
+query: a processed Scanpy object with clusters column in the metadata
 
 downsample: logical Indicator (True or False) to downsample reference, enabling fast computation. if classification_method is set to "ClassifyCells_usingApproximation" query will be downsampled along with reference.
 
@@ -102,7 +102,7 @@ Label Harmonization is a function to harmonize cell labels (celltypes) across si
 It requires a list of processed h5ad objects with a Celltypes in the metadata or an integrated h5ad object (with Celltypes and Clusters in the metadata). One can choose from randomForest, SVM or Ensemble classifiction methods to harmonize celltypes.
 
 ## How does the function work?
-### Integrate Seurat objects
+### Integrate Scanpy objects
 Integrate list of h5ad objects into an integrated object 
 ### Scaling
 Scale integrated data 
@@ -122,9 +122,9 @@ out = LabelHarmonization(data_objects = [object1,object2,object3...], integrated
 
 ## What does each parameter do?
 ```
-data_objects: a list of processed h5ad objects with Celltypes  their respective metadata to perform integration on
+data_objects: a list of processed Scanpy h5ad objects with Celltypes  their respective metadata to perform integration on
 
-perform_integration: logical Indicator (True or False) to perform integration using list of seurat.objects
+perform_integration: logical Indicator (True or False) to perform integration using list of Scanpy.objects
 
 integrated_atlas: an integrated h5ad object with CellTypes and Clusters in metadata. Required if: perform_integration = FALSE
 
@@ -157,7 +157,7 @@ cost: control the error tolerance of the SVM classifier (Default: 10)
 # Deduce Relationship
 Deduce Relationship is a function used primarily to infer the similarity between celltypes across single cell datasets. As the name suggests, any kind of relationship between cell metadata (Clusters, Celltypes, idents etc.) could also be determined.
 ## Requirements
-It requires two reference datasets (processed Seurat Object with Celltypes column in the metadata). One can choose from randomForest, SVM or Ensemble classifiction methods to learn celltypes from the reference dataset and find the best corresponding celltypes in the other reference dataset. 
+It requires two reference datasets (processed Scanpy Object with Celltypes column in the metadata). One can choose from randomForest, SVM or Ensemble classifiction methods to learn celltypes from the reference dataset and find the best corresponding celltypes in the other reference dataset. 
 
 ## How does the function work?
 ### Merge Reference1 and Reference2
@@ -182,9 +182,9 @@ out = DeduceRelationship(reference1 = None, reference2 = None, downsample = Fals
 
 ## What does each parameter do?
 ```
-reference1: a processed h5ad object with Celltypes in the metadata
+reference1: a processed Scanpy h5ad object with Celltypes in the metadata
 
-reference2: a processed h5ad object with Celltypes in the metadata
+reference2: a processed Scanpy h5ad object with Celltypes in the metadata
 
 downsample: logical Indicator (True or False) to downsample reference1 and reference2, enabling faster computation
 
@@ -205,12 +205,6 @@ cost: control the error tolerance of the SVM classifier (Default: 10)
 1) a seaborn heatmap object
 2) Confusion matrices from each classification_method and heatmap are automatically saved in current working directory
 ```
-
-# ELeFHAnt Reference datasets as plugins
-Download pre-processed reference datasets for Celltype Annotation, Label Harmonization or DeduceRelationship here: https://www.dropbox.com/sh/6hd2skriqqlokwp/AAAVol-_qPlCdA4DpERWjkeJa?dl=0
-  
-# Tutorials
-Please download the tutorials in .html or .Rmd format using the following link: https://www.dropbox.com/sh/rky0q5vf8oo7d6t/AAC0_fG5GQVdqldIIP2rWV49a?dl=0
 
 # Citation
 Please cite our preprint: https://www.biorxiv.org/content/10.1101/2021.09.07.459342v1 when using ELeFHAnt in your research.
